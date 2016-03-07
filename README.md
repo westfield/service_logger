@@ -1,41 +1,76 @@
 # ServiceLogger
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/service_logger`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Structured Logging to support Westfield Api micro services
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add the following lines to your application's Gemfile:
 
 ```ruby
-gem 'service_logger'
+  gem 'lograge'
+  gem 'logstash-event'
+  gem 'logstash-logger'
+  gem 'service_logger', git: "#{westfield_private}/service_logger"
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Service Integration
 
-    $ gem install service_logger
+  - Step 1 - Add the following to the Application Controller
+    ```ruby
+      include ServiceLogger
+    ```
 
-## Usage
+    ```ruby
+      def service_info
+        return { service_name: "the_name_of_your_service", environment: "#{Rails.env}" }
+      end
+    ```
 
-TODO: Write usage instructions here
+  - Step 2 - Add the following to `config/environments/development.rb` && `config/environments/production.rb`
 
-## Development
+    ```ruby
+      # Supports Structured logging
+      config.log_level = :info
+      config.log_tags = [ :uuid ]
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+      config.lograge.formatter = Lograge::Formatters::Json.new
+      config.lograge.enabled = true
+      config.lograge.custom_options = lambda do |request|
+        { service_name: "events", environment: "#{Rails.env}", time: request.time }
+      end
+    ```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+  - Step 3 - Add `service_log` method to relevant controllers (This is an Optional Step)
 
-## Contributing
+  ```ruby
+    service_log(service_info, "action_and_controller_name", { data_from_service } , tag_name)
+  ```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/service_logger. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+    Example
+  ```ruby
+    service_log(service_info, 'show_event', { event: @event }, "analytics")
+  ```
 
+
+## Results
+
+- After integrating `service_logger` your log should
+
+```ruby
+  #Example of the basics (based on Step 1)
+  [b0164c88-b972-4b75-84c2-286e4704839e]
+  {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":207.57,"view":72.67,"db":23.61,"service_name":"events","environment":"development","time":"2016-03-07T15:18:12.752-08:00"}
+```
+
+```ruby
+  #Example of additional data logged for analytical purposes (based on Step 2)
+  [b0164c88-b972-4b75-84c2-286e4704839e] [analytics] [2016-03-07 23:18:12 UTC] {"service_name":null,"environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
+```
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT). -->

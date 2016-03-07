@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["kisha.richardson@gmail.com"]
   spec.homepage      = 'https://github.com/westfield/service_logger'
 
-  spec.summary       = "Structured Logging for westfield api services "
-  spec.description   = "Structured Logging for westfield api services "
+  spec.summary       = "Structured Logging support for Westfield Api micro services"
+  spec.description   = "Structured Logging to support Westfield Api micro services"
   spec.homepage      = 'https://github.com/westfield/service_logger'
   spec.license       = "MIT"
 
