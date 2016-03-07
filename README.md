@@ -58,7 +58,7 @@ And then execute:
 
 ## Results
 
-- After integrating `service_logger` your log should
+- Post integration of `service_logger`, your logs should be cleaner and contain the following: 
 
 ```ruby
   #Example of the basics (based on Step 1)
@@ -67,7 +67,7 @@ And then execute:
 ```
 
 ```ruby
-  #Example of additional data logged for analytical purposes (based on Step 2)
+  #Example of additional optional logging for analytical purposes (based on Step 2)
   [b0164c88-b972-4b75-84c2-286e4704839e] [analytics] [2016-03-07 23:18:12 UTC] {"service_name":null,"environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
 ```
 
