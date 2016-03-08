@@ -26,7 +26,7 @@ And then execute:
 
     ```ruby
       def service_info
-        return { service_name: "name_of_service", environment: "#{Rails.env}" }
+        return { name: "name_of_service", environment: "#{Rails.env}" }
       end
     ```
 
