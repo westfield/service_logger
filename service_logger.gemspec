@@ -8,14 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = ServiceLogger::VERSION
   spec.authors       = ["Kisha Michelle Richardson"]
   spec.email         = ["kisha.richardson@gmail.com"]
-  spec.homepage      = 'https://github.com/westfield/service_logger'
 
   spec.summary       = "Structured Logging support for Westfield Api micro services"
   spec.description   = "Structured Logging to support Westfield Api micro services"
   spec.homepage      = 'https://github.com/westfield/service_logger'
   spec.license       = "MIT"
 
-  # spec.files         = `git ls-files lib`.split("\n")
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
