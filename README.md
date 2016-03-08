@@ -26,7 +26,7 @@ And then execute:
 
     ```ruby
       def service_info
-        return { service_name: "the_name_of_your_service", environment: "#{Rails.env}" }
+        return { service_name: "name_of_service", environment: "#{Rails.env}" }
       end
     ```
 
@@ -40,7 +40,7 @@ And then execute:
       config.lograge.formatter = Lograge::Formatters::Json.new
       config.lograge.enabled = true
       config.lograge.custom_options = lambda do |request|
-        { service_name: "events", environment: "#{Rails.env}", time: request.time }
+        { service_name: "name_of_service", environment: "#{Rails.env}", time: request.time }
       end
     ```
 
@@ -58,7 +58,7 @@ And then execute:
 
 ## Results
 
-- Post integration of `service_logger`, your logs should be cleaner and contain the following: 
+- Post integration of `service_logger`, your logs should be cleaner and contain the following:
 
 ```ruby
   #Example of the basics (based on Step 1)
