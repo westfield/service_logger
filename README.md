@@ -7,9 +7,6 @@ Structured Logging to support Westfield Api micro services
 Add the following lines to your application's Gemfile:
 
 ```ruby
-  gem 'lograge'
-  gem 'logstash-event'
-  gem 'logstash-logger'
   gem 'service_logger', git: "#{westfield_private}/service_logger"
 ```
 
@@ -24,35 +21,32 @@ And then execute:
       include ServiceLogger
     ```
 
-    ```ruby
-      def service_info
-        return { name: "name_of_service", environment: "#{Rails.env}" }
-      end
-    ```
+  - Step 2 - Add `service_logger.rb` initializer
 
-  - Step 2 - Add the following to `config/environments/development.rb` && `config/environments/production.rb`
+  ```ruby
+      ServiceLogger.configure do |config|
+        config.service_name = "event_service" #example This will be included in the generator next round
+      end
+  ```
+
+
+  - Step 3 - Add the following to `config/environments/development.rb` and/or `config/environments/production.rb`
 
     ```ruby
       # Supports Structured logging
       config.log_level = :info
-      config.log_tags = [ :uuid ]
-
-      config.lograge.formatter = Lograge::Formatters::Json.new
-      config.lograge.enabled = true
-      config.lograge.custom_options = lambda do |request|
-        { service_name: "name_of_service", environment: "#{Rails.env}", time: request.time }
-      end
+      config.log_tags = [ :uuid,  lambda { |request| Time.now.utc } ]
     ```
 
-  - Step 3 - Add `service_log` method to relevant controllers (This is an Optional Step)
+  - Step 4 - Add `service_log` method to relevant controllers (OPTIONAL)
 
   ```ruby
-    service_log(service_info, "action_and_controller_name", { data_from_service } , tag_name)
+    service_log("action_and_controller_name", { data_from_service } , tag_name)
   ```
 
     Example
   ```ruby
-    service_log(service_info, 'show_event', { event: @event }, "analytics")
+    service_log('show_event', { event: @event }, "analytics")
   ```
 
 
@@ -62,13 +56,14 @@ And then execute:
 
 ```ruby
   #Example of the basics (based on Step 1)
-  [b0164c88-b972-4b75-84c2-286e4704839e]
-  {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":207.57,"view":72.67,"db":23.61,"service_name":"events","environment":"development","time":"2016-03-07T15:18:12.752-08:00"}
+
+  [e7521d93-4757-428f-85b4-f1f0e2460144] [2016-03-15 20:27:11 UTC] {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":217.51,"view":66.4,"db":25.91,"service_name":"event_service","environment":"development"}
+
 ```
 
 ```ruby
   #Example of additional optional logging for analytical purposes (based on Step 2)
-  [b0164c88-b972-4b75-84c2-286e4704839e] [analytics] [2016-03-07 23:18:12 UTC] {"service_name":null,"environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
+[e7521d93-4757-428f-85b4-f1f0e2460144] [2016-03-15 20:27:11 UTC] [analytics] {"service_name":"event_service","environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
 ```
 
 ## License
