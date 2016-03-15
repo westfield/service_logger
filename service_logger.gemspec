@@ -30,7 +30,4 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'railties', '>= 4', '<= 5.0.0.beta2'
 
   spec.add_runtime_dependency 'lograge'
-  spec.add_runtime_dependency 'logstash-event'
-  spec.add_runtime_dependency 'logstash-logger'
-
 end
