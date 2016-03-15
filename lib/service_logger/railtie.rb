@@ -11,11 +11,12 @@ module ServiceLogger
     end
 
     config.after_initialize do |app|
-      config.lograge.enabled = true
+      config.lograge.enable = true
       config.lograge.formatter = Lograge::Formatters::Json.new
       config.lograge.custom_options = lambda do |request|
-        { service_name: Rails.application.class.to_s, time: request.time.utc, environment: "#{Rails.env}" }
+        { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment }
       end
+
       Lograge.setup(app)
     end
   end

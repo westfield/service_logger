@@ -39,7 +39,7 @@ module ServiceLogger
 
   def service_log(service_message, service_details, tag_name="none")
     logger.tagged(tag_name) do
-      message = { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment, service_message: service_message, service_details: service_details}
+      message = { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment, service_message: service_message, service_details: service_details }
       logger.info(message.to_json)
     end
   end
