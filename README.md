@@ -54,13 +54,13 @@ And then execute:
 - Logs should be cleaner and contain the following:
 
 ```ruby
-  #Example of the basics (based on Step 1)
-  [6ef968c5-f2d9-428c-8c16-1b54fb42ad4c] [2016-03-15 21:06:11 UTC] {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":91.27,"view":45.45,"db":14.95,"service_name":"EventService::Application","time":"2016-03-15T21:06:11.398Z","environment":"development"}
+  #Example of Basic
+  [aabf54d4-40a0-4082-a385-46d146006544] [2016-03-16 00:22:33 UTC] {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":80.08,"view":43.54,"db":12.6,"service_name":"event_service","environment":"development"}
 ```
 
 ```ruby
-  #Example of Optional logging for analytical purposes (based on Step 2)
-  [6ef968c5-f2d9-428c-8c16-1b54fb42ad4c] [2016-03-15 21:06:11 UTC] [analytics] {"service_name":"event_service","environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
+  #Example of OPTIONAL logging to support analytics (Step 3a)
+  [7450d124-cc42-434a-952e-09ff08f50044] [2016-03-16 00:20:45 UTC] [analytics] {"service_name":"event_service","environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
 ```
 
 
