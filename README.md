@@ -36,17 +36,17 @@ And then execute:
       config.log_tags = [ :uuid,  lambda { |request| Time.now.utc } ]
     ```
 
-## Service Integration - Optional
+## Service Integration for Analytics - Optional
 
-  - Step 3a - Add `service_log` method to relevant controllers (OPTIONAL)
+  - Step 3a - Add `service_log` method to relevant controllers (completely OPTIONAL)
 
     ```ruby
-      service_log("action_and_controller_name", { data_from_service } , tag_name)
+      service_log("action_and_controller_name", { data_from_service } )
       ```
 
     Example
     ```ruby
-      service_log('show_event', { event: @event }, "analytics")
+      service_log('show_event', { event: @event })
       ```
 
 ## Results
@@ -60,7 +60,7 @@ And then execute:
 
 ```ruby
   #Example of Optional logging for analytical purposes (based on Step 2)
-  [6ef968c5-f2d9-428c-8c16-1b54fb42ad4c] [2016-03-15 21:06:11 UTC] [analytics] {"service_name":"event_service","environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
+  [6ef968c5-f2d9-428c-8c16-1b54fb42ad4c] [2016-03-15 21:06:11 UTC] [analytics] {"service_name":"event_service","environment":"development","event":"index_of_events","event_details":{"events_count":10}}
 ```
 
 
