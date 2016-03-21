@@ -28,7 +28,7 @@ And then execute:
       include ServiceLogger
     ```
 
-  - Step 3 - Add the following to `config/environments/development.rb` and/or `config/environments/production.rb`
+  - Step 3 - Add the following to `config/environments/development.rb` (if you want ) and/or `config/environments/production.rb`
 
     ```ruby
       #Supports Structured logging
@@ -36,17 +36,17 @@ And then execute:
       config.log_tags = [ :uuid,  lambda { |request| Time.now.utc } ]
     ```
 
-## Service Integration - Optional
+## Service Integration for Analytics - [ Optional ]
 
-  - Step 3a - Add `service_log` method to relevant controllers (OPTIONAL)
+  - Step 3a - Add `service_log` method to relevant controllers (This is OPTIONAL)
 
     ```ruby
-      service_log("action_and_controller_name", { data_from_service } , tag_name)
+      service_log("action_and_controller_name", { data_from_service })
       ```
 
     Example
     ```ruby
-      service_log('show_event', { event: @event }, "analytics")
+      service_log('show_event', { event: @event })
       ```
 
 ## Results
@@ -60,9 +60,8 @@ And then execute:
 
 ```ruby
   #Example of OPTIONAL logging to support analytics (Step 3a)
-  [7450d124-cc42-434a-952e-09ff08f50044] [2016-03-16 00:20:45 UTC] [analytics] {"service_name":"event_service","environment":"development","service_message":"index_of_events","service_details":{"events_count":10}}
+  [7450d124-cc42-434a-952e-09ff08f50044] [2016-03-16 00:20:45 UTC] [analytics] {"service_name":"event_service","environment":"development","event":"index_of_events","event_details":{"events_count":10}}
 ```
-
 
 ## Next Steps
 
