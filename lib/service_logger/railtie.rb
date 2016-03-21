@@ -14,7 +14,7 @@ module ServiceLogger
       config.lograge.enable = true
       config.lograge.formatter = Lograge::Formatters::Json.new
       config.lograge.custom_options = lambda do |request|
-        { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment }
+        ServiceLogger.default_custom_options
       end
 
       Lograge.setup(app)
