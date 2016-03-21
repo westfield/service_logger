@@ -27,6 +27,10 @@ module ServiceLogger
     application.config.service_logger
   end
 
+  def self.default_custom_options
+    { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment }
+  end
+
   private
 
   def self.default_service_name
@@ -34,7 +38,7 @@ module ServiceLogger
   end
 
   def self.default_environment
-    service_logger_config.environment || Rails.env
+    { name: service_logger_config.environment || Rails.env }
   end
 
   def service_log(event, event_details, tag_name="analytics")
