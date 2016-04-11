@@ -28,7 +28,7 @@ module ServiceLogger
   end
 
   def self.default_custom_options
-    { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment }
+    { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment, version: ServiceLogger::VERSION }
   end
 
   private
@@ -43,7 +43,7 @@ module ServiceLogger
 
   def service_log(event, event_details, tag_name="analytics")
     logger.tagged(tag_name) do
-      message = { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment, event: event, event_details: event_details }
+      message = { service_name: ServiceLogger.service_name, environment: ServiceLogger.environment, version: ServiceLogger::VERSION, event: event, event_details: event_details }
       logger.info(message.to_json)
     end
   end
