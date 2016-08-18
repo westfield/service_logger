@@ -14,7 +14,11 @@ module ServiceLogger
       config.lograge.enable = true
       config.lograge.formatter = Lograge::Formatters::Json.new
       config.lograge.custom_options = lambda do |request|
-        ServiceLogger.default_custom_options
+        defaults = ServiceLogger.default_custom_options
+        exceptions = %w(controller action format id)
+        params = { params: request.payload[:params].except(*exceptions) }
+
+        defaults.merge(params)
       end
 
       Lograge.setup(app)

@@ -55,7 +55,7 @@ And then execute:
 
 ```ruby
   #Example of Basic
-  [aabf54d4-40a0-4082-a385-46d146006544] [2016-03-16 00:22:33 UTC] {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":80.08,"view":43.54,"db":12.6,"service_name":"event_service","environment":"development"}
+  [aabf54d4-40a0-4082-a385-46d146006544] [2016-03-16 00:22:33 UTC] {"method":"GET","path":"/events","format":"json","controller":"api/v1/events","action":"index","status":200,"duration":80.08,"view":43.54,"db":12.6,"service_name":"event_service","environment":"development", params:{"name": "Bespoke Tech Talk" "sensitive_field": "[FILTERED]"}}
 ```
 
 ```ruby
