@@ -47,6 +47,11 @@ module ServiceLogger
       logger.info(message.to_json)
     end
   end
+
+  def logger
+    raise NotImplementedError unless defined?(Rails)
+    Rails.logger
+  end
 end
 
 require 'service_logger/railtie' if defined?(Rails)
