@@ -63,6 +63,31 @@ And then execute:
   [7450d124-cc42-434a-952e-09ff08f50044] [2016-03-16 00:20:45 UTC] [analytics] {"service_name":"event_service","environment":"development","event":"index_of_events","event_details":{"events_count":10}}
 ```
 
+## Rake Task Logger
+
+You can log your rake tasks by following the example
+
+```ruby
+  #Need to add this 3 first lines, to enable the logger for the rake
+  require 'task_logger'
+
+  Rake::TaskManager.record_task_metadata = true
+  include TaskLogger
+
+  namespace :demo do
+    desc "Test rake"
+    task :test => :environment do |t, args|
+      task_log(t, args) do
+       # your code here
+      end
+    end
+  end
+```
+
+```ruby
+  #Example of how the log for the rake will look like
+  [analytics] {"service_name":"PeopleAccessService::Application","environment":{"name":"development"},"version":"1.3.0","event":"RAKE_TASK","event_details":{"task_name":"demo:test","arguments":["some arguments"],"starts_at":"2016-10-14T16:40:34-03:00","ends_at":"2016-10-14T16:40:34-03:00","duration":1.0001357,"errors":{"message":"Error Message","error_type":"Error Type"}}}
+```
 ## Next Steps
 
  - TBD
