@@ -9,16 +9,8 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Structured Logging support for micro services.'
   spec.description   = 'Structured Logging to support micro services.'
-  spec.homepage      = 'https://github.com/westfield/service_logger'
+  spec.homepage      = 'https://github.com/westfieldlabs/service_logger'
   spec.license       = 'Apache 2.0'
-
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = 'TODO: Set to "http://mygemserver.com"'
-  else
-    raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.'
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'bin'
