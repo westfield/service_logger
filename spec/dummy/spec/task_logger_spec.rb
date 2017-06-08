@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe "TaskLogger" do
   Dummy::Application.load_tasks
 
